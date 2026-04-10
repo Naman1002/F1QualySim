@@ -17,8 +17,7 @@ const pool = new Pool({
 app.get("/track", async(req,res) =>{
     try{
         const result = await pool.query(`
-            SELECT * FROM "Silverstone"
-            ORDER BY "number"    
+            SELECT * FROM "Monza_track"   
         `)
         res.json(result.rows);
     } catch (err) {
