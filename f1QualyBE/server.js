@@ -14,16 +14,32 @@ const pool = new Pool({
 })
 
 // API CREATION 
-app.get("/track", async(req,res) =>{
+app.get("/track/:name", async(req,res) =>{
+    const {name} = req.params
     try{
+        let table;
+        if(name==="Italy(Monza)"){
+            table = '"Monza_track"'
+        }
+        else if(name==="GBR"){
+            table = '"Silverstone_track"'
+        }else if(name==="Singapore"){
+            table = '"Singapore_track"'
+        }
+        else if(name==="Australia"){
+            table = '"Australia_tracks"'
+        }
+        else{
+            return res.status(400).send("Track Not Available")
+        }
         const result = await pool.query(`
-            SELECT * FROM "Monza_track"   
+            SELECT * FROM ${table}   
         `)
         res.json(result.rows);
     } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
-  }
+        console.error(err);
+        res.status(500).send("Server error");
+    }
 });
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
