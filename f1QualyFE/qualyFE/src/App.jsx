@@ -1,21 +1,19 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 import '../src/Tracks/Tracks'
 import Tracks from '../src/Tracks/Tracks';
 import TrackSelect from './TrackSelect/TrackSelect';
+import Square from './Tracks/Square';
 function App() {
+  const [track,setTrack] = useState("monza")
   return (
     <>
       <section id="center">
           <h1>Get started</h1>
       </section>
-      <TrackSelect></TrackSelect>
-      <Tracks></Tracks>
-      <div className="ticks"></div>
-
+      <Square></Square>
+      <TrackSelect setTrack={setTrack}></TrackSelect>
+      <Tracks track={track}></Tracks>
     </>
   )
 }

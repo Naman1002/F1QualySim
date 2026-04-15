@@ -1,16 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRef, useEffect } from 'react'
 import * as d3 from "d3"
 
-function Tracks({draw}) {
+function Tracks({track}) {
     const svgRef = useRef();
     useEffect(()=>{
-         console.log("USE EFFECT RUNNING", draw);
         // the code that we want to run
         // if(!draw) return;
         // the code is guaranteed to run at least once when the component is mounted
         console.log("FETCH STARTING");
-        fetch("http://localhost:3000/track")
+        fetch(`http://localhost:3000/track/${track}`)
         .then(res => res.json()) // convert the response to json
         .then(data => {
             const parsedData = data.map(d => ({
@@ -49,7 +48,7 @@ function Tracks({draw}) {
         })
 
         //optional return and cleanup for useffect
-    },[draw]) //dependancy array ( tells useeffect which variables to listen to and react to, kind of hooks to the 
+    },[track]) //dependancy array ( tells useeffect which variables to listen to and react to, kind of hooks to the 
     // variable so that it changes on the change)
   return (
     <div>  
